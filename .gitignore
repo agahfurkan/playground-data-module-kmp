@@ -1,15 +1,37 @@
-*.iml
-.kotlin
+# Gradle
 .gradle
 **/build/
-xcuserdata
 !src/**/build/
-local.properties
-.idea
-.DS_Store
+!build/generated-sources/
+!build/generated-resources/
+!build/kotlin-build/
+!build/classes/
+!build/dependency-cache/
+!build/kotlin-js-min/
+!build/kotlin-js/
+!build/reports/
+!build/test-results/
+!build/tmp/
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.kotlin
+xcuserdata
 captures
 .externalNativeBuild
 .cxx
+
+# macOS
+.DS_Store
+
+# Local properties
+local.properties
+
+# Xcode
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/

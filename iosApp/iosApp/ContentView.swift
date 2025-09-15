@@ -2,18 +2,23 @@ import UIKit
 import SwiftUI
 import ComposeApp
 
-struct ComposeView: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
-}
-
 struct ContentView: View {
     var body: some View {
-        ComposeView()
-            .ignoresSafeArea()
+        VStack {
+            Button("Get Users") {
+                Task {
+                    let userRepository = UserRepository()
+                    do {
+                        let users = try await userRepository.getUsers()
+                        print("Users: \(users)")
+                    } catch {
+                        print("Error fetching users: \(error)")
+                    }
+                }
+            }
+            ComposeView()
+                .ignoresSafeArea(.all) // Compose has own safe area handling
+        }
     }
 }
 

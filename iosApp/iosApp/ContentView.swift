@@ -1,26 +1,33 @@
-import UIKit
 import SwiftUI
-import ComposeApp
+import Shared
 
 struct ContentView: View {
+    @State private var showContent = false
     var body: some View {
         VStack {
-            Button("Get Users") {
-                Task {
-                    let userRepository = UserRepository()
-                    do {
-                        let users = try await userRepository.getUsers()
-                        print("Users: \(users)")
-                    } catch {
-                        print("Error fetching users: \(error)")
-                    }
+            Button("Click me!") {
+                withAnimation {
+                    showContent = !showContent
                 }
             }
-            ComposeView()
-                .ignoresSafeArea(.all) // Compose has own safe area handling
+
+            if showContent {
+                VStack(spacing: 16) {
+                    Image(systemName: "swift")
+                        .font(.system(size: 200))
+                        .foregroundColor(.accentColor)
+                    Text("SwiftUI: \(Greeting().greet())")
+                }
+                .transition(.move(edge: .top).combined(with: .opacity))
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .padding()
     }
 }
 
-
-
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}

@@ -1,39 +1,80 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# Playground Data Module (KMP)
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+This is a Kotlin Multiplatform data module targeting native Android and iOS applications.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Project Structure
 
-* [/shared](./shared/src) is for the code that will be shared between all targets in the project.
-  The most important subfolder is [commonMain](./shared/src/commonMain/kotlin). If preferred, you
-  can add code to the platform-specific folders here too.
+* [/shared](./shared/src) contains the shared data layer code:
+  - [commonMain](./shared/src/commonMain/kotlin) - Common business logic, repositories, and models
+  - [androidMain](./shared/src/androidMain/kotlin) - Android-specific implementations
+  - [iosMain](./shared/src/iosMain/kotlin) - iOS-specific implementations
 
-### Build and Run Android Application
+## Features
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+- **Networking**: Ktor client with platform-specific implementations (OkHttp for Android, Darwin for iOS)
+- **Serialization**: Kotlinx Serialization for JSON parsing
+- **Coroutines**: For asynchronous operations
+- **Repositories**: Clean architecture data layer with repositories for:
+  - User management (login, register, token validation)
+  - Product catalog
+  - Product details
+  - Categories
+  - Shopping cart
+  - Announcements
+  - PDF handling
 
-### Build and Run iOS Application
+## Integration
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+### Android
+Add this to your native Android app's `settings.gradle.kts`:
+```kotlin
+include(":shared")
+project(":shared").projectDir = file("../playground-data-module-kmp/shared")
+```
+
+Then add the dependency in your app's `build.gradle.kts`:
+```kotlin
+dependencies {
+    implementation(project(":shared"))
+}
+```
+
+### iOS
+The project generates an XCFramework for iOS. To build it:
+```shell
+./gradlew :shared:assembleSharedReleaseXCFramework
+```
+
+The framework will be available at `shared/build/XCFrameworks/release/shared.xcframework`
+
+#### Using SPM (Swift Package Manager)
+1. Build the XCFramework
+2. Copy it to the `SPM/` directory
+3. Add the local Swift package to your Xcode project
+
+Or integrate the framework directly into your Xcode project.
+
+## Building
+
+### Build XCFramework for iOS
+```shell
+./gradlew :shared:assembleSharedReleaseXCFramework
+```
+
+### Build Android Library
+```shell
+./gradlew :shared:assembleRelease
+```
+
+## Development
+
+To add new features:
+1. Define models in `shared/src/commonMain/kotlin/.../model/`
+2. Create repository interfaces in `shared/src/commonMain/kotlin/.../repository/`
+3. Implement repositories with Ktor for API calls
+4. Add platform-specific code in `androidMain` or `iosMain` if needed
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
+

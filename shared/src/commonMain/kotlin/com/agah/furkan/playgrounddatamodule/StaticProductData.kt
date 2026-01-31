@@ -1,5 +1,9 @@
 package com.agah.furkan.playgrounddatamodule
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlin.random.Random
+
 data class KmpProduct(
     val categoryId: Long,
     val discount: Double,
@@ -19,6 +23,42 @@ data class KmpProductDetail(
     val productId: Int,
     val productName: String
 )
+
+data class KmpProductDetails(
+    val productId: String,
+    val productName: String,
+    val description: String,
+    val sections: List<Section>,
+    val reviews: List<Review>
+) {
+    data class Section(val sectionName: String, val sectionContent: List<SectionDetail>)
+    data class SectionDetail(val name: String, val value: String)
+    data class Review(val userName: String, val review: String, val rating: Int, val date: String)
+}
+
+fun List<KmpProductDetails.Review>.averageRating(): Float {
+    return this.map { it.rating }.average().toFloat()
+}
+
+fun List<KmpProductDetails.Review>.totalReviewsByRating(): List<Triple<Int, Int, Float>> {
+    val groupedByRatingList = this.groupBy { it.rating }
+    val listMappedBySize = groupedByRatingList.mapValues { it.value.size }
+    val totalReviewSize = listMappedBySize.values.sum()
+    //rating, totalReviewSize, averageRating
+    val tripleList = mutableListOf(
+        Triple(1, 0, 0f),
+        Triple(2, 0, 0f),
+        Triple(3, 0, 0f),
+        Triple(4, 0, 0f),
+        Triple(5, 0, 0f)
+    )
+    listMappedBySize.forEach { item ->
+        val matchedItem = tripleList.firstOrNull { it.first == item.key }
+        tripleList.remove(matchedItem)
+        tripleList.add(Triple(item.key, item.value, item.value / totalReviewSize.toFloat()))
+    }
+    return tripleList.sortedByDescending { it.first }
+}
 
 object StaticProductData {
 
@@ -142,6 +182,85 @@ object StaticProductData {
         } else {
             emptyList()
         }
+    }
+
+    fun getKmpProductDetails(): Flow<KmpProductDetails> {
+        return flow<KmpProductDetails> {
+            emit(
+                KmpProductDetails(
+                    productId = "quaerendum",
+                    productName = "Winfred Vasquez",
+                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do" +
+                            " eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum " +
+                            "dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
+                            " ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing" +
+                            " elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
+                            " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod" +
+                            " tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit " +
+                            "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                            "labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur " +
+                            "adipiscing elit, sed do eiusmod tempor incididunt ut labore et " +
+                            "dolore magna aliqua.",
+                    sections = listOf(
+                        KmpProductDetails.Section(
+                            sectionName = "Liza Olsen",
+                            sectionContent = listOf(
+                                KmpProductDetails.SectionDetail(
+                                    name = "Diana Ford",
+                                    value = "idque"
+                                ),
+                                KmpProductDetails.SectionDetail(
+                                    name = "Marlin Henson",
+                                    value = "quod"
+                                )
+                            )
+                        ),
+                        KmpProductDetails.Section(
+                            sectionName = "Liza Olsen",
+                            sectionContent = listOf(
+                                KmpProductDetails.SectionDetail(
+                                    name = "Diana Ford",
+                                    value = "idque"
+                                ),
+                                KmpProductDetails.SectionDetail(
+                                    name = "Shawna Wiggins",
+                                    value = "euismod"
+                                ),
+                                KmpProductDetails.SectionDetail(
+                                    name = "Janie Marshall",
+                                    value = "comprehensam"
+                                )
+                            )
+                        ),
+                        KmpProductDetails.Section(
+                            sectionName = "Liza Olsen",
+                            sectionContent = listOf(
+                                KmpProductDetails.SectionDetail(
+                                    name = "Diana Ford",
+                                    value = "idque"
+                                )
+                            )
+                        )
+                    ),
+                    reviews = generateFakeReviewList()
+                )
+            )
+        }
+    }
+
+    fun generateFakeReviewList(): List<KmpProductDetails.Review> {
+        val reviewList = mutableListOf<KmpProductDetails.Review>()
+        for (i in 0..9) {
+            reviewList.add(
+                KmpProductDetails.Review(
+                    userName = "Tracie Richmond",
+                    review = "accommodare",
+                    rating = Random.nextInt(1, 6),
+                    date = "senectus"
+                )
+            )
+        }
+        return reviewList
     }
 }
 

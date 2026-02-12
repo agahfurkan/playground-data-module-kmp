@@ -66,7 +66,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 1,
             discount = 0.15,
-            picture = "https://picsum.photos/400/400?random=1",
+            picture = "https://picsum.photos/id/230/400/400",
             price = 299.99,
             productDescription = "High-performance wireless headphones with active noise cancellation and premium sound quality. Perfect for music lovers and professionals.",
             productId = 1,
@@ -75,7 +75,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 1,
             discount = 0.10,
-            picture = "https://picsum.photos/400/400?random=2",
+            picture = "https://picsum.photos/id/231/400/400",
             price = 899.99,
             productDescription = "Latest flagship smartphone with 5G connectivity, advanced camera system, and stunning AMOLED display.",
             productId = 2,
@@ -84,7 +84,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 2,
             discount = 0.20,
-            picture = "https://picsum.photos/400/400?random=3",
+            picture = "https://picsum.photos/id/232/400/400",
             price = 1299.99,
             productDescription = "Ultra-thin laptop with powerful processor, long battery life, and premium build quality. Perfect for work and entertainment.",
             productId = 3,
@@ -93,7 +93,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 2,
             discount = 0.0,
-            picture = "https://picsum.photos/400/400?random=4",
+            picture = "https://picsum.photos/id/233/400/400",
             price = 249.99,
             productDescription = "Smart fitness tracker with heart rate monitoring, GPS tracking, and water resistance. Track your health 24/7.",
             productId = 4,
@@ -102,7 +102,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 3,
             discount = 0.25,
-            picture = "https://picsum.photos/400/400?random=5",
+            picture = "https://picsum.photos/id/234/400/400",
             price = 449.99,
             productDescription = "4K action camera with stabilization, waterproof housing, and wide-angle lens. Capture your adventures in stunning detail.",
             productId = 5,
@@ -111,7 +111,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 3,
             discount = 0.05,
-            picture = "https://picsum.photos/400/400?random=6",
+            picture = "https://picsum.photos/id/235/400/400",
             price = 199.99,
             productDescription = "Smart home speaker with voice assistant, premium sound, and smart home integration.",
             productId = 6,
@@ -120,7 +120,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 1,
             discount = 0.30,
-            picture = "https://picsum.photos/400/400?random=7",
+            picture = "https://picsum.photos/id/236/400/400",
             price = 79.99,
             productDescription = "Wireless gaming mouse with RGB lighting, programmable buttons, and high-precision sensor for competitive gaming.",
             productId = 7,
@@ -129,7 +129,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 2,
             discount = 0.0,
-            picture = "https://picsum.photos/400/400?random=8",
+            picture = "https://picsum.photos/id/237/400/400",
             price = 549.99,
             productDescription = "Professional tablet with stylus support, powerful performance, and beautiful display. Perfect for creativity and productivity.",
             productId = 8,
@@ -138,7 +138,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 3,
             discount = 0.15,
-            picture = "https://picsum.photos/400/400?random=9",
+            picture = "https://picsum.photos/id/238/400/400",
             price = 349.99,
             productDescription = "True wireless earbuds with active noise cancellation, premium sound quality, and long battery life.",
             productId = 9,
@@ -147,7 +147,7 @@ object StaticProductData {
         KmpProduct(
             categoryId = 1,
             discount = 0.10,
-            picture = "https://picsum.photos/400/400?random=10",
+            picture = "https://picsum.photos/id/239/400/400",
             price = 159.99,
             productDescription = "Mechanical gaming keyboard with RGB backlighting, customizable keys, and durable switches.",
             productId = 10,

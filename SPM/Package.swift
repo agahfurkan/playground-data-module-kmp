@@ -1,5 +1,5 @@
 // swift-tools-version:5.7
-// SharedSPM/Package.swift
+// SPM/Package.swift
 
 import PackageDescription
 

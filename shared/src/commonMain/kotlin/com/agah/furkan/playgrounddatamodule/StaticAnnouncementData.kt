@@ -10,7 +10,7 @@ data class KmpAnnouncement(
 
 object StaticAnnouncementData {
 
-    fun getAnnouncements(): List<KmpAnnouncement> = listOf(
+    private val announcements: List<KmpAnnouncement> = listOf(
         KmpAnnouncement(
             id = 1,
             title = "New Year Sale",
@@ -70,11 +70,11 @@ object StaticAnnouncementData {
     )
 
     fun getAnnouncementById(id: Long): KmpAnnouncement? {
-        return getAnnouncements().find { it.id == id }
+        return announcements.find { it.id == id }
     }
 
     fun getAnnouncementsByPriority(priority: String): List<KmpAnnouncement> {
-        return getAnnouncements().filter { it.priority == priority }
+        return announcements.filter { it.priority == priority }
     }
 }
 

@@ -11,7 +11,7 @@ data class KmpPdf(
 
 object StaticPdfData {
 
-    fun getPdfList(): List<KmpPdf> = listOf(
+    private val pdfList: List<KmpPdf> = listOf(
         KmpPdf(
             pdfId = 1,
             data = "product_catalog_2026",
@@ -79,11 +79,11 @@ object StaticPdfData {
     )
 
     fun getPdfById(pdfId: Long): KmpPdf? {
-        return getPdfList().find { it.pdfId == pdfId }
+        return pdfList.find { it.pdfId == pdfId }
     }
 
     fun searchPdfs(query: String): List<KmpPdf> {
-        return getPdfList().filter {
+        return pdfList.filter {
             it.title.contains(query, ignoreCase = true) ||
             it.description.contains(query, ignoreCase = true)
         }

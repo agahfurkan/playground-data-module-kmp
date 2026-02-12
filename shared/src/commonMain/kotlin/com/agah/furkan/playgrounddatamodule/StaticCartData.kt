@@ -15,45 +15,8 @@ object StaticCartData {
 
     private val cartItems = mutableMapOf<Long, MutableList<KmpCart>>()
 
-    fun getCartForUser(userId: Long): List<KmpCart> {
-        return cartItems[userId]?.toList() ?: getDefaultCart(userId)
-    }
-
-    private fun getDefaultCart(userId: Long): List<KmpCart> {
-        val defaultItems = mutableListOf(
-            KmpCart(
-                cartId = 1,
-                discount = 0.15,
-                picture = "https://picsum.photos/400/400?random=1",
-                price = 299.99,
-                productDescription = "High-performance wireless headphones with active noise cancellation.",
-                productId = 1,
-                productName = "Premium Wireless Headphones",
-                quantity = 1
-            ),
-            KmpCart(
-                cartId = 2,
-                discount = 0.10,
-                picture = "https://picsum.photos/400/400?random=2",
-                price = 899.99,
-                productDescription = "Latest flagship smartphone with 5G connectivity.",
-                productId = 2,
-                productName = "Flagship Smartphone Pro",
-                quantity = 2
-            ),
-            KmpCart(
-                cartId = 3,
-                discount = 0.30,
-                picture = "https://picsum.photos/400/400?random=7",
-                price = 79.99,
-                productDescription = "Wireless gaming mouse with RGB lighting.",
-                productId = 7,
-                productName = "Gaming Mouse Pro",
-                quantity = 1
-            )
-        )
-        cartItems[userId] = defaultItems
-        return defaultItems
+    fun getCartForUser(userId: Long): List<KmpCart>? {
+        return cartItems[userId]?.toList()
     }
 
     fun addProductToCart(userId: Long, productId: Long): Boolean {
@@ -68,15 +31,16 @@ object StaticCartData {
         } else {
             // Add new item (you would normally fetch product details here)
             val newCartId = (userCart.maxOfOrNull { it.cartId } ?: 0) + 1
+            val product = StaticProductData.getProductById(productId) ?: return false
             userCart.add(
                 KmpCart(
                     cartId = newCartId,
-                    discount = 0.0,
-                    picture = "https://picsum.photos/400/400?random=$productId",
-                    price = 99.99,
-                    productDescription = "Product description for product $productId",
+                    discount = product.discount,
+                    picture = product.picture,
+                    price = product.price,
+                    productDescription = product.productDescription,
                     productId = productId,
-                    productName = "Product $productId",
+                    productName = product.productName,
                     quantity = 1
                 )
             )

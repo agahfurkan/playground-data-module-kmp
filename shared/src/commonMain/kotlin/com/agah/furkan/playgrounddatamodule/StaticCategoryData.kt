@@ -8,7 +8,7 @@ data class KmpCategory(
 
 object StaticCategoryData {
 
-    fun getCategories(): List<KmpCategory> = listOf(
+    val categories: List<KmpCategory> = listOf(
         KmpCategory(
             categoryId = 1,
             categoryName = "Electronics",
@@ -52,7 +52,7 @@ object StaticCategoryData {
     )
 
     fun getCategoryById(categoryId: Long): KmpCategory? {
-        return getCategories().find { it.categoryId == categoryId }
+        return categories.find { it.categoryId == categoryId }
     }
 }
 

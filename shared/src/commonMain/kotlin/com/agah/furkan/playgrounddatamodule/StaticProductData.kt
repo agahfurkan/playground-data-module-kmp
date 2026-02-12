@@ -62,7 +62,7 @@ fun List<KmpProductDetails.Review>.totalReviewsByRating(): List<Triple<Int, Int,
 
 object StaticProductData {
 
-    fun getProducts(): List<KmpProduct> = listOf(
+    private val products: List<KmpProduct> = listOf(
         KmpProduct(
             categoryId = 1,
             discount = 0.15,
@@ -156,11 +156,11 @@ object StaticProductData {
     )
 
     fun getProductsByCategoryId(categoryId: Long): List<KmpProduct> {
-        return getProducts().filter { it.categoryId == categoryId }
+        return products.filter { it.categoryId == categoryId }
     }
 
     fun getProductById(productId: Long): KmpProductDetail? {
-        val product = getProducts().find { it.productId == productId } ?: return null
+        val product = products.find { it.productId == productId } ?: return null
         return KmpProductDetail(
             categoryId = product.categoryId.toInt(),
             discount = product.discount,

@@ -69,6 +69,10 @@ object StaticAnnouncementData {
         )
     )
 
+    fun getAnnouncements(): List<KmpAnnouncement> {
+        return announcements
+    }
+
     fun getAnnouncementById(id: Long): KmpAnnouncement? {
         return announcements.find { it.id == id }
     }

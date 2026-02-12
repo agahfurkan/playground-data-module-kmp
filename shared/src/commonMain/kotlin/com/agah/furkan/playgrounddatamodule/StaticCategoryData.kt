@@ -8,7 +8,7 @@ data class KmpCategory(
 
 object StaticCategoryData {
 
-    val categories: List<KmpCategory> = listOf(
+    private val categories: List<KmpCategory> = listOf(
         KmpCategory(
             categoryId = 1,
             categoryName = "Electronics",
@@ -50,6 +50,10 @@ object StaticCategoryData {
             categoryIcon = "🔌"
         )
     )
+
+    fun getCategories(): List<KmpCategory> {
+        return categories
+    }
 
     fun getCategoryById(categoryId: Long): KmpCategory? {
         return categories.find { it.categoryId == categoryId }

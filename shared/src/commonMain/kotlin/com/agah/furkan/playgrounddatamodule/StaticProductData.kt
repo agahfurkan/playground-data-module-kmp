@@ -155,6 +155,10 @@ object StaticProductData {
         )
     )
 
+    fun getProducts(): List<KmpProduct> {
+        return products
+    }
+
     fun getProductsByCategoryId(categoryId: Long): List<KmpProduct> {
         return products.filter { it.categoryId == categoryId }
     }
